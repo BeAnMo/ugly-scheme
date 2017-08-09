@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        h1 {
+            margin: 0.25rem;
+        }
+        
+        section {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        textarea {
+            margin: 0.5rem;
+            font-size: 1.25rem;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Ugly-Scheme</h1>
+    <p>Remember, any input must be valid JSON!</p>
+    
+    <section id="definitions">
+        <textarea cols="45" rows="15"></textarea>
+        <div class="btns">
+            <button id="run">Run Program</button>
+            <button id="clear">Clear Output</button>
+        </div>
+        <textarea id="interactions" cols="40" rows="10"></textarea>
+    </section>
+    
+    <script src="ugly-scheme.js"></script>
+    <!--<script src="tests.js"></script>-->
+    <script>
+        isSchemeLoaded;
+            
+        var defines = document.getElementById('definitions');
+        var interacts = document.getElementById('interactions');
+        var runBtn = document.getElementById('run');
+        var clearBtn = document.getElementById('clear');
+        
+        runBtn.addEventListener('click', () => {
+            var input = defines.children[0].value;
+            var output = defines.children[2];
+            var defs = `[${input}]`;
+            var parsedJSON = JSON.parse(defs);
+            
+            output.value = '';
+            parsedJSON.forEach((expr) => {   
+                output.value += `> ${evalExpr(expr, DEFINED)}\n`;
+                console.log(evalExpr(expr, DEFINED));
+            });
+            output.value += '> ';
+        }, false);
+        
+        clearBtn.addEventListener('click', () => {
+            interacts.value = '> ';
+        }, false)
+    </script>
+    
+  </body>
+</html>
